@@ -14,23 +14,22 @@ Widget buildArticleItem(article, context) => InkWell(
         padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 120.0,
               height: 120.0,
-              decoration: BoxDecoration(
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
-                image: article['urlToImage'] != null
-                    ? DecorationImage(
-                        image: NetworkImage(
-                          '${article['urlToImage']}',
-                        ),
-                        fit: BoxFit.cover,
-                      )
-                    : const DecorationImage(
-                        image: NetworkImage(
-                            'http://www.pagebd.org/public/imgs/1632460150.png'),
-                        fit: BoxFit.cover,
-                      ),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/news.png',
+                  image: '${article['urlToImage']}',
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/news.png',
+                      fit: BoxFit.cover,
+                    );
+                  },
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(
