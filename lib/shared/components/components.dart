@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/modules/loading/NewsCardSkelton.dart';
 import 'package:news_app/modules/web_view/web_view_screen.dart';
 
 Widget buildArticleItem(article, context) => InkWell(
@@ -84,7 +85,16 @@ Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       ),
       fallback: (context) => isSearch
           ? Container()
-          : const Center(child: CircularProgressIndicator()),
+          : Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: ListView.separated(
+            itemBuilder: (context, index) => const NewsCardSkelton(),
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 16.0,
+            ),
+            itemCount: 5,
+      ),
+          ),
     );
 
 Widget defaultFormField({
